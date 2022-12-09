@@ -1,7 +1,42 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-      <!-- Add a Form with the following Inputs (and Validators)
+      <form (ngSubmit)="onSubmit()" #f="ngForm">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" class="form-control" ngModel name="email" required email #email="ngModel">
+          <span class="form-group" style="color: red" *ngIf="!email.valid && email.touched">Please enter a valid
+            email!</span>
+        </div>
+        <div class="form-group">
+          <label for="subscriptions">Subscription Type</label>
+          <select id="subscriptions" class="form-control" [ngModel]="defaultsubscription" name="subscriptions">
+            <option value="Basic">Basic</option>
+            <option value="Advanced">Advanced</option>
+            <option value="Professional">Professional</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" class="form-control" ngModel name="password" required password #password="ngModel">
+          <span class="form-group" style="color: red" *ngIf="!password.valid && password.touched">Please enter a password!</span>
+        </div>
+        <button class="btn btn-primary" type="submit" [disabled]="!f.valid">Submit</button>
+      </form>
+    </div>
+  </div>
+  <hr>
+  <div class="row" *ngIf = 'submitted'>
+    <div class="col-xs-12">
+      <h3>Your Data</h3>
+      <p>Mail: {{user.email}}</p>
+      <p>Subscription: {{user.subscriptions}}</p>
+      <p>Password: {{user.password}}</p>
+    </div>
+  </div>
+</div>
+
+<!-- Add a Form with the following Inputs (and Validators)
            1) Mail address (should not be empty and should be an email address)
            2) A Dropdown which allows the user to select from three different Subscriptions ("Basic", "Advanced", "Pro")
               Set "Advanced" as Default
@@ -13,6 +48,3 @@
            Upon submitting the form, you should simply print the Value of the Form to the Console.
            Optionally, display it in your template.
       -->
-    </div>
-  </div>
-</div>
